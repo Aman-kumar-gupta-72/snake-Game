@@ -12,6 +12,7 @@ body {
   min-height: 100vh;
   background: #e3f2fd;
   padding: 1rem;
+  flex-direction: column;
 }
 
 .container {
@@ -90,18 +91,34 @@ body {
 }
 
 /* Responsive tweaks for very small screens */
-@media (max-width: 400px) {
-  .container {
-    width: 95vmin;
-    height: 100vmin;
+.mobile-controls {
+  display: none;
+}
+
+@media (max-width: 768px) {
+    
+  .mobile-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+    gap: 0.5rem;
   }
 
-  .game-detail {
-    padding: 0.8rem 1rem;
-    font-size: 1rem;
+  .mobile-controls button {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+    background: #293447;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    cursor: pointer;
   }
 
-  .restart-btn {
-    width: 100%;
+  .mobile-controls div {
+    display: flex;
+    gap: 1rem;
   }
 }

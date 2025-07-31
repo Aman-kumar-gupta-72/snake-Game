@@ -98,6 +98,35 @@ const initGame=()=>{
     }
     playBoard.innerHTML = htmlMarkup;
 }
+// Add event listeners for mobile buttons
+document.getElementById("up").addEventListener("click", () => {
+  if (velocityY !== 1) {
+    velocityX = 0;
+    velocityY = -1;
+  }
+});
+
+document.getElementById("down").addEventListener("click", () => {
+  if (velocityY !== -1) {
+    velocityX = 0;
+    velocityY = 1;
+  }
+});
+
+document.getElementById("left").addEventListener("click", () => {
+  if (velocityX !== 1) {
+    velocityX = -1;
+    velocityY = 0;
+  }
+});
+
+document.getElementById("right").addEventListener("click", () => {
+  if (velocityX !== -1) {
+    velocityX = 1;
+    velocityY = 0;
+  }
+});
+
 changeFoodPosition();
 
  setIntervalId=setInterval(initGame,125);
