@@ -9,6 +9,9 @@ let snakeBody=[];
 let setIntervalId
 let score = 0;
 let highScore= localStorage.getItem("high-score")||0;
+const moveSound = new Audio('sounds/move.mp3');
+const popSound = new Audio('sounds/pop.mp3');
+const gameOverSound = new Audio('sounds/gameover.mp3');
 
 const changeFoodPosition = ()=>{
     // passing a random 0-30 value as food
@@ -20,33 +23,54 @@ const changeFoodPosition = ()=>{
 }
 const handleGameOver=() =>{
     clearInterval(setIntervalId);
-    alert("Game over! Press Ok To replay...")
-    location.reload();
+      moveSound.pause();
+    gameOverSound.play()
+    gameOver = true;
+
+    playBoard.innerHTML += `
+        <div class="game-over-screen">
+            <div class="game-over-message">Game Over</div>
+            <button class="restart-btn" onclick="location.reload()">Restart</button>
+        </div>
+    `;
+     setTimeout(() => {
+        location.reload();
+    }, 5000);
 
 }
 const changeDirection = (e) =>{
     if(e.key==="ArrowUp" && velocityY !=1){
         velocityX=0;
         velocityY=-1;
+      
     }else if(e.key==="ArrowDown" && velocityY !=-1){
         velocityX=0;
         velocityY=1;
+        
+        
+
     }else if(e.key==="ArrowLeft" && velocityX !=1){
         velocityX=-1;
         velocityY=0;
+      
+        
     }else if(e.key==="ArrowRight" && velocityX !=-1 ){
         velocityX=1;
         velocityY=0;
+      
     }
 
 }
 
 const initGame=()=>{
+    moveSound.play()
     if(gameOver)return handleGameOver();
     let htmlMarkup =`<div class="food" style="grid-area: ${foodY}/${foodX}"></div>`;
     if(snakeX === foodX && snakeY ===  foodY){
         changeFoodPosition()
         snakeBody.push([foodX,foodY]);
+            popSound.currentTime = 0;
+    popSound.play();
         score++;
         highScore=score>=highScore?score :highScore;
         localStorage.setItem("high-score", highScore)
